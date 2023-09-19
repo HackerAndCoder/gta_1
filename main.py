@@ -21,6 +21,11 @@ def handle_events(events):
             pygame.quit()
             exit()
 
+def handle_movement():
+    # temporary testing code
+    if pygame.key.get_pressed()[pygame.K_w]:
+        objects[0].accelerate(2)
+
 while True:
     game_clock.tick(30)
     window.fill((255, 255, 255))
@@ -32,3 +37,4 @@ while True:
     pygame.display.flip()
     
     handle_events(pygame.event.get())
+    handle_movement()
