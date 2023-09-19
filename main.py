@@ -1,4 +1,4 @@
-import pygame, car
+import pygame
 
 pygame.init()
 
@@ -10,7 +10,6 @@ pygame.display.set_caption('GTA')
 game_clock = pygame.time.Clock()
 
 # game objects initialization
-test_car = car.CarSprite()
 
 def handle_events(events):
     for event in events:
