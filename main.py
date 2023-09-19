@@ -9,6 +9,8 @@ pygame.display.set_caption('GTA')
 
 game_clock = pygame.time.Clock()
 
+camera_pos = utils.Pos()
+
 # game objects initialization
 
 objects = [game_objects.Car(utils.Pos(10, 10))]
@@ -21,12 +23,12 @@ def handle_events(events):
 
 while True:
     game_clock.tick(30)
-    
+    window.fill((255, 255, 255))
+
     for object in objects:
         object.update()
-        
-
-    window.fill((255, 255, 255))
+        window.blit(object.get_render(), utils.add_vectors(object.pos.get_pos(), camera_pos.get_pos()))
+    
     pygame.display.flip()
     
     handle_events(pygame.event.get())

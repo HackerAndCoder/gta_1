@@ -1,9 +1,12 @@
 import os, pygame
 
 class Pos:
-    def __init__(self, x, y):
+    def __init__(self, x = 0, y = 0):
         self.x = x
         self.y = y
+    
+    def get_pos(self):
+        return (self.x, self.y)
 
 def load_texture(path):
     return pygame.image.load(os.path.join('assets', path + '.png'))
