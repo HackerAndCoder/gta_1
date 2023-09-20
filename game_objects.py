@@ -69,7 +69,7 @@ class Car:
         surface = pygame.Surface(self.texture.get_size(), pygame.SRCALPHA)
         surface.set_colorkey((0, 0, 0))
 
-        img = utils.rotate(self.texture, self.texture.get_rect(), -self.get_direction()-90)[0]
+        img = utils.rotate_img(self.texture, self.texture.get_rect(), -self.get_direction()-90)[0]
         rotated_img_center = img.get_rect().center
         surface_center = self.texture.get_rect().center
         surface.blit(img, utils.sub_vectors(surface_center, rotated_img_center))
