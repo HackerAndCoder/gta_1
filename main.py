@@ -1,5 +1,6 @@
 import pygame, game_objects, utils
 from game_objects import GameObjects
+from utils import Pos
 
 pygame.init()
 
@@ -12,11 +13,11 @@ game_clock = pygame.time.Clock()
 
 targeted_object = 0
 
-camera_pos = utils.Pos()
+camera_pos = Pos()
 
 # game objects initialization
 
-objects = [game_objects.Car(utils.Pos(100, 100))]
+objects = [game_objects.Humanoid(Pos(100, 100), GameObjects.player)]
 
 def is_pressed(key):
     return pygame.key.get_pressed()[key]
