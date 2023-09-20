@@ -1,9 +1,18 @@
 import math, utils, pygame
 
+class GameObjects:
+    car = 'car'
+    player = 'player'
+    blank = 'blank'
+
 class Car:
     def __init__(self, pos : utils.Pos):
+        self.type = GameObjects.car
+
         self.pos = pos
         self.direction = 0 # in radians!
+        self.torque = 1 # the acceleration and deacceleration force
+        self.turn_speed = 4 # how fast the car turns
         self.speed = 0
         self.target_speed = 0 
         self.power = 0.2 # how fast the car speeds up 
@@ -17,16 +26,28 @@ class Car:
     def get_direction(self):
         return math.degrees(self.direction)
     
-    def turn(self, degrees):
+    def _turn(self, degrees):
         self.direction += math.radians(degrees) * (self.speed / self.max_speed)
     
-    def accelerate(self, amount):
+    def turn_left(self):
+        self._turn(-self.turn_speed)
+    
+    def turn_right(self):
+        self._turn(self.turn_speed)
+    
+    def _accelerate(self, amount):
         self.target_speed += amount
         if self.target_speed > self.max_speed:
             self.target_speed -= 1
     
     def stop(self):
         self.speed = 0
+    
+    def accelerate(self):
+        self._accelerate(self.torque)
+    
+    def deaccelerate(self):
+        self._accelerate(-self.torque)
 
     def update(self):
         self.pos.x += math.cos(self.direction) * self.speed
