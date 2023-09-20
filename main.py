@@ -13,7 +13,10 @@ camera_pos = utils.Pos()
 
 # game objects initialization
 
-objects = [game_objects.Car(utils.Pos(10, 10))]
+objects = [game_objects.Car(utils.Pos(100, 100))]
+
+def is_pressed(key):
+    return pygame.key.get_pressed()[key]
 
 def handle_events(events):
     for event in events:
@@ -23,12 +26,18 @@ def handle_events(events):
 
 def handle_movement():
     # temporary testing code
-    if pygame.key.get_pressed()[pygame.K_w]:
-        objects[0].accelerate(2)
+    if is_pressed(pygame.K_w):
+        objects[0].accelerate(1)
+    if is_pressed(pygame.K_a):
+        objects[0].turn(5)
+    if is_pressed(pygame.K_d):
+        objects[0].turn(-5)
+    if is_pressed(pygame.K_s):
+        objects[0].accelerate(-1)
 
 while True:
     game_clock.tick(30)
-    window.fill((255, 255, 255))
+    window.fill((200, 200, 200))
 
     for object in objects:
         object.update()

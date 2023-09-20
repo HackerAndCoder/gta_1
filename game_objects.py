@@ -42,4 +42,8 @@ class Car:
             self.speed -= self.power
     
     def get_render(self):
-        return pygame.transform.rotate(self.texture, self.get_direction())
+        surface = pygame.Surface(self.texture.get_size(), pygame.SRCALPHA)
+        surface.set_colorkey((0, 0, 0))
+        img = utils.rotate(self.texture, self.texture.get_rect(), self.get_direction())[0]
+        surface.blit(img, utils.add_vectors(self.texture.get_size(), img.get_rect()))
+        return surface
