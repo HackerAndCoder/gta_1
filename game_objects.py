@@ -18,7 +18,7 @@ class Car:
         return math.degrees(self.direction)
     
     def turn(self, degrees):
-        self.direction += math.radians(degrees)
+        self.direction += math.radians(degrees) * (self.speed / self.max_speed)
     
     def accelerate(self, amount):
         self.target_speed += amount
@@ -31,10 +31,13 @@ class Car:
     def update(self):
         self.pos.x += math.cos(self.direction) * self.speed
         self.pos.y += math.sin(self.direction) * self.speed
-        if self.target_speed > self.resistance:
+        if self.target_speed > self.resistance and self.target_speed > 0    :
             self.target_speed -= self.resistance
         elif self.target_speed > self.resistance and self.target_speed > 0:
             self.target_speed = 0
+        
+        elif self.target_speed < 0 and (self.target_speed + self.resistance < 0):
+            self.target_speed += self.resistance
         
         if self.target_speed > self.speed:
             self.speed += self.power
@@ -44,6 +47,10 @@ class Car:
     def get_render(self):
         surface = pygame.Surface(self.texture.get_size(), pygame.SRCALPHA)
         surface.set_colorkey((0, 0, 0))
-        img = utils.rotate(self.texture, self.texture.get_rect(), self.get_direction())[0]
-        surface.blit(img, utils.add_vectors(self.texture.get_size(), img.get_rect()))
+
+        img = utils.rotate(self.texture, self.texture.get_rect(), -self.get_direction()-90)[0]
+        rotated_img_center = img.get_rect().center
+        surface_center = self.texture.get_rect().center
+        surface.blit(img, utils.sub_vectors(surface_center, rotated_img_center))
+
         return surface

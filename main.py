@@ -29,9 +29,9 @@ def handle_movement():
     if is_pressed(pygame.K_w):
         objects[0].accelerate(1)
     if is_pressed(pygame.K_a):
-        objects[0].turn(5)
+        objects[0].turn(-4)
     if is_pressed(pygame.K_d):
-        objects[0].turn(-5)
+        objects[0].turn(4)
     if is_pressed(pygame.K_s):
         objects[0].accelerate(-1)
 
