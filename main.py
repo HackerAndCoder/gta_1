@@ -1,4 +1,5 @@
 import pygame, game_objects, utils
+from game_objects import GameObjects
 
 pygame.init()
 
@@ -33,16 +34,20 @@ def handle_events(events):
             exit()
 
 def handle_movement():
+    object = get_targeted_object()
     # temporary testing code
-    if get_targeted_object().type == game_objects.GameObjects.car:
-        if is_pressed(pygame.K_w):
-            objects[0].accelerate()
-        if is_pressed(pygame.K_a):
-            objects[0].turn_left()
-        if is_pressed(pygame.K_d):
-            objects[0].turn_right()
-        if is_pressed(pygame.K_s):
-            objects[0].deaccelerate()
+    if is_pressed(pygame.K_w):
+        if object.type == GameObjects.car: object.accelerate()
+        elif object.type == GameObjects.player: object.walk()
+    if is_pressed(pygame.K_a):
+        if object.type == GameObjects.car: object.turn_left()
+        elif object.type == GameObjects.player: object.turn_left()
+    if is_pressed(pygame.K_d):
+        if object.type == GameObjects.car: object.turn_right()
+        elif object.type == GameObjects.player: object.turn_right()
+    if is_pressed(pygame.K_s):
+        if object.type == GameObjects.car: object.deaccelerate()
+
 
 while True:
     game_clock.tick(30)
